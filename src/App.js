@@ -4,10 +4,15 @@ import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
 
+const app = {
+  position: 'relative',
+  minHeight: '100vh',
+};
+
 class App extends Component {
   render() {
     return (
-      <div>
+      <div style={app}>
         <Header />
         <Main />
         <Footer />

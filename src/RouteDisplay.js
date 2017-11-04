@@ -1,5 +1,18 @@
 import React from 'react';
 
-export default (props) => (
-  <div>{props.route.name}</div>
-);
+const routeContainer = {
+  backgroundColor: '#ffffff',
+  padding: '8px 8px',
+};
+
+export default (props) => {
+  return (
+    <div
+      style={{
+        ...routeContainer,
+        borderBottom: `8px solid ${props.route.routeColor}`,
+      }}>
+      {props.route.name}
+    </div>
+  );
+};
