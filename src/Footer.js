@@ -1,10 +1,10 @@
 import React from 'react';
 
 const footer = {
-  backgroundColor: '#045D6A',
-  boxShadow: '0 0 2px',
+  backgroundColor: 'rgb(82,82,82)',
+  boxShadow: '0 0 4px',
   color: 'rgb(255,255,255)',
-  padding: '16px 0',
+  padding: '1rem 0',
   width: '100%',
   position: 'absolute',
   bottom: 0,
@@ -18,6 +18,6 @@ const signature = {
 
 export default () => (
   <footer style={footer}>
-    <h1 style={signature}>App created by: Tyrice Clark</h1>
+    <span style={signature}>App created by: Tyrice Clark</span>
   </footer>
 );

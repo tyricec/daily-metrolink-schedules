@@ -1,13 +1,13 @@
 import React from 'react';
 
 const headerStyle = {
-  backgroundColor: '#045D6A',
-  boxShadow: '0 0 2px',
+  backgroundColor: 'rgb(4,93,106)',
+  boxShadow: '0 0 4px',
   padding: '16px 8px',
 };
 
 const title = {
-  color: '#ffffff',
+  color: 'rgb(255,255,255)',
   fontSize: '1.4em',
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const routeContainer = {
-  backgroundColor: '#ffffff',
+  backgroundColor: 'rgb(255,255,255)',
   padding: '8px 8px',
 };
 
