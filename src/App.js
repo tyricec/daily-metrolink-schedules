@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Footer from './Footer';
 import Header from './Header';
@@ -14,11 +15,14 @@ const app = {
 class App extends Component {
   render() {
     return (
-      <div style={app}>
-        <Header />
-        <RouteDetails />
-        <Footer />
-      </div>
+      <Router>
+        <div style={app}>
+          <Header />
+          <Route exact path="/" component={Main} />
+          <Route path="/details" component={RouteDetails} />
+          <Footer />
+        </div>
+      </Router>
     );
   }
 }

@@ -8,6 +8,7 @@ const routeContainer = {
 export default (props) => {
   return (
     <div
+      onClick={props.onPress}
       style={{
         ...routeContainer,
         borderBottom: `8px solid ${props.route.routeColor}`,

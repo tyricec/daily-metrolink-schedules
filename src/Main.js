@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import RouteDisplay from './RouteDisplay';
 
 const container = {
@@ -10,30 +11,47 @@ const row = {
   marginBottom: '16px',
 };
 
-export default () => {
-  const routes = [{
-    name: '91/Perris Valley',
-    routeColor: '#0071CE',
-  }, {
-    name: 'Antelope Valley',
-    routeColor: '#00AF43',
-  }, {
-    name: 'Riverside',
-    routeColor: '#682E86',
-  }, {
-    name: 'San Bernardino',
-    routeColor: '#A32136',
-  }];
+export default class Main extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const routeDisplays = routes.map(route => (
-    <div key={route.name} style={row}>
-      <RouteDisplay route={route} />
-    </div>
-  ));
+    this.state = {
+      redirect: false,
+    };
+  }
 
-  return (
-    <div id="main" style={container}>
+  onRouteClick = () => {
+    this.setState({ redirect: true });
+  }
+  render() {
+    if (this.state.redirect) {
+      return <Redirect to="/details" />;
+    }
+    const routes = [{
+      name: '91/Perris Valley',
+      routeColor: '#0071CE',
+    }, {
+      name: 'Antelope Valley',
+      routeColor: '#00AF43',
+    }, {
+      name: 'Riverside',
+      routeColor: '#682E86',
+    }, {
+      name: 'San Bernardino',
+      routeColor: '#A32136',
+    }];
+
+    const routeDisplays = routes.map(route => (
+      <div key={route.name} style={row}>
+        <RouteDisplay onPress={this.onRouteClick} route={route} />
+      </div>
+    ));
+
+    return (
+      <div id="main" style={container}>
         {routeDisplays}
-    </div>
-  )
-};
+      </div>
+    );
+  }
+}
+

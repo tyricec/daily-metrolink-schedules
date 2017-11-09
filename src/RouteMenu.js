@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const styles = {
   container: {
@@ -24,7 +25,9 @@ const styles = {
 
 export default () => (
   <div style={styles.container}>
-    <div style={styles.routeSelect}>91/Perris Valley</div>
+    <div style={styles.routeSelect}>
+      <Link to="/">91/Perris Valley</Link>
+    </div>
     <div style={styles.directionSelect}>Inbound</div>
   </div>
 );
