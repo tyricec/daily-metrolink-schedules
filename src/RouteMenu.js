@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Dropdown from './Dropdown';
+
 const styles = {
   container: {
     backgroundColor: 'rgb(66,134,247)',
@@ -23,11 +25,15 @@ const styles = {
   }
 };
 
-export default () => (
+export default (props) => (
   <div style={styles.container}>
     <div style={styles.routeSelect}>
-      <Link to="/">91/Perris Valley</Link>
+      <Link style={{ color: 'rgb(255,255,255)' }} to="/">{props.route}</Link>
     </div>
-    <div style={styles.directionSelect}>Inbound</div>
+    <Dropdown
+      onSelect={props.onDirectionChange}
+      selected={props.selectedDirection}
+      items={props.directions}
+    />
   </div>
 );

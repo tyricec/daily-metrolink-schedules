@@ -20,12 +20,12 @@ export default class Main extends React.Component {
     };
   }
 
-  onRouteClick = () => {
-    this.setState({ redirect: true });
+  onRouteClick = (route) => {
+    this.setState({ route, redirect: true });
   }
   render() {
     if (this.state.redirect) {
-      return <Redirect to="/details" />;
+      return <Redirect to={`/details/${encodeURIComponent(this.state.route)}`} />;
     }
     const routes = [{
       name: '91/Perris Valley',
@@ -43,7 +43,7 @@ export default class Main extends React.Component {
 
     const routeDisplays = routes.map(route => (
       <div key={route.name} style={row}>
-        <RouteDisplay onPress={this.onRouteClick} route={route} />
+        <RouteDisplay onPress={() => this.onRouteClick(route.name)} route={route} />
       </div>
     ));
 

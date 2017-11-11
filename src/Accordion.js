@@ -1,8 +1,5 @@
 import React from 'react';
 
-import arrowDown from './arrow_down.svg';
-import arrowUp from './arrow_up.svg';
-
 const styles = {
   expandContainer: {
     borderLeft: '1px solid rgb(0,0,0)',
@@ -37,10 +34,11 @@ export default class Accordion extends React.Component {
           {this.props.children}
         </div>
         <div onClick={this.toggle} style={styles.expandContainer}>
-          <img
-            alt={this.state.show ? 'Arrow-Up' : 'Arrow-Down'}
-            style={styles.arrowIcon}
-            src={this.state.show ? arrowUp : arrowDown} />
+          { this.state.show ?
+            <i className="fa fa-chevron-up" aria-hidden="true"></i>
+            :
+            <i className="fa fa-chevron-down" aria-hidden="true"></i>
+          }
         </div>
       </div>
     );

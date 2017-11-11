@@ -19,7 +19,7 @@ class App extends Component {
         <div style={app}>
           <Header />
           <Route exact path="/" component={Main} />
-          <Route path="/details" component={RouteDetails} />
+          <Route path="/details/:route" component={RouteDetails} />
           <Footer />
         </div>
       </Router>

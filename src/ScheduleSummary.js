@@ -6,7 +6,7 @@ const styles = {
     color: 'rgb(255,255,255)',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
 };
 
