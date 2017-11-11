@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
-import Footer from './Footer';
-import Header from './Header';
-import Main from './Main';
-import RouteDetails from './RouteDetails';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Main from './components/main';
+import RouteDetails from './components/details';
 
 const app = {
   position: 'relative',
