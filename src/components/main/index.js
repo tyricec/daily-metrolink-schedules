@@ -1,5 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import LoadingIndicator from 'react-loading-indicator';
+
+import { fetchRoutes } from '../../actions';
 import RouteDisplay from './RouteDisplay';
 
 const container = {
@@ -11,39 +15,33 @@ const row = {
   marginBottom: '16px',
 };
 
-export default class Main extends React.Component {
+export class Main extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       redirect: false,
     };
+
+    this.props.dispatch(fetchRoutes());
   }
 
   onRouteClick = (route) => {
     this.setState({ route, redirect: true });
   }
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={`/details/${encodeURIComponent(this.state.route)}`} />;
     }
-    const routes = [{
-      name: '91/Perris Valley',
-      routeColor: '#0071CE',
-    }, {
-      name: 'Antelope Valley',
-      routeColor: '#00AF43',
-    }, {
-      name: 'Riverside',
-      routeColor: '#682E86',
-    }, {
-      name: 'San Bernardino',
-      routeColor: '#A32136',
-    }];
 
-    const routeDisplays = routes.map(route => (
-      <div key={route.name} style={row}>
-        <RouteDisplay onPress={() => this.onRouteClick(route.name)} route={route} />
+    if (this.props.isFetching) {
+      return <LoadingIndicator />;
+    }
+
+    const routeDisplays = this.props.routes.map(route => (
+      <div key={route.route_id} style={row}>
+        <RouteDisplay onPress={() => this.onRouteClick(route.route_id)} route={route} />
       </div>
     ));
 
@@ -55,3 +53,9 @@ export default class Main extends React.Component {
   }
 }
 
+export default connect(
+  state => ({
+    isFetching: state.routes.isFetching,
+    routes: state.routes.items,
+  }),
+)(Main);

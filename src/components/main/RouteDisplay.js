@@ -11,9 +11,9 @@ export default (props) => {
       onClick={props.onPress}
       style={{
         ...routeContainer,
-        borderBottom: `8px solid ${props.route.routeColor}`,
+        borderBottom: `8px solid #${props.route.route_color}`,
       }}>
-      {props.route.name}
+      {props.route.route_id}
     </div>
   );
 };
