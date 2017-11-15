@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import  { createLogger } from 'redux-logger';
+import { applyMiddleware, createStore, compose } from 'redux';
+import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk'
 import 'font-awesome/css/font-awesome.css';
 import './index.css';
@@ -14,16 +14,18 @@ const loggerMiddleware = createLogger();
 
 const store = createStore(
   mlinkApp,
-  applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware,
+  compose(
+    applyMiddleware(
+      thunkMiddleware,
+      loggerMiddleware,
+    ),
   ),
 );
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
-  </Provider>, 
+  </Provider>,
   document.getElementById('root')
 );
 

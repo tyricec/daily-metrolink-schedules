@@ -6,6 +6,7 @@
     "es6-promise": "^4.1.1",
     "font-awesome": "^4.7.0",
     "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.19.2",
     "popper.js": "^1.12.6",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
@@ -26,6 +27,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "redux-devtools": "^3.4.1"
+    "redux-devtools": "^3.4.1",
+    "redux-devtools-log-monitor": "^1.4.0"
   }
 }

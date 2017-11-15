@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+
 import ScheduleRow from './ScheduleRow';
 
 export default props => (
@@ -6,7 +8,11 @@ export default props => (
     <ScheduleRow name={'Stop'} time={'Departure Time'} />
     {
       props.departures.map(info =>
-        <ScheduleRow key={info.name} name={info.name} time={info.time} />
+        <ScheduleRow
+          key={info.stop_id}
+          name={info.stop_name}
+          time={moment(info.arrival_time, 'HH:mm:ss').format('hh:mm a')}
+        />
       )
     }
   </div>

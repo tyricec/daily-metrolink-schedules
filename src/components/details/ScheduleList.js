@@ -25,12 +25,12 @@ export default (props) => (
   <div>
     {
       props.schedules.map(schedule => (
-        <div key={schedule.name} style={styles.scheduleContainer}>
+        <div key={schedule.trip_short_name} style={styles.scheduleContainer}>
           <div style={styles.scheduleSummary}>
             <ScheduleSummary
-              route={schedule.name}
+              route={schedule.trip_short_name}
               duration={schedule.duration}
-              daysOfWeek={schedule.dayType}
+              daysOfWeek={schedule.dayType.display}
             />
           </div>
           <Accordion>
