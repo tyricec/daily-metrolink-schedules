@@ -5,6 +5,7 @@ import LoadingIndicator from 'react-loading-indicator';
 
 import { fetchRoutes } from '../../actions';
 import RouteDisplay from './RouteDisplay';
+import { getRouteFetchingStatus, getRoutes } from '../../reducers/index';
 
 const container = {
   padding: '16px 8px',
@@ -55,7 +56,7 @@ export class Main extends React.Component {
 
 export default connect(
   state => ({
-    isFetching: state.routes.isFetching,
-    routes: state.routes.items,
+    isFetching: getRouteFetchingStatus(state),
+    routes: getRoutes(state),
   }),
 )(Main);

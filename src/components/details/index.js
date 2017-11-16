@@ -1,8 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import LoadingIndicator from 'react-loading-indicator';
 
 import { fetchSchedules, switchDestination } from '../../actions';
-import { getScheduleDestination, getSchedulesForDestination } from '../../reducers';
+import {
+  getScheduleDestination,
+  getSchedulesForDestination,
+  getSchedulesFetchingStatus
+} from '../../reducers';
 import RouteMenu from './RouteMenu';
 import ScheduleList from './ScheduleList';
 
@@ -33,6 +38,10 @@ class RouteDetails extends React.Component {
     if (this.props.schedules === undefined || this.props.schedules === null)
       return null;
 
+    if (this.props.isFetching) {
+      return <LoadingIndicator />;
+    }
+
     return (
       <div>
         <div style={styles.menuContainer}>
@@ -54,6 +63,7 @@ class RouteDetails extends React.Component {
 export default connect(
   state => ({
     destination: getScheduleDestination(state),
+    isFetching: getSchedulesFetchingStatus(state),
     schedules: getSchedulesForDestination(state),
   }),
 )(RouteDetails);
