@@ -41,6 +41,13 @@ export const fetchRoutes = () => {
   };
 };
 
+export const setRoute = (route_id) => ({
+  payload: {
+    routeId: route_id,
+  },
+  type: actionTypes.SET_ROUTE,
+});
+
 export const sendSchedules = (schedules) => {
   const formatArrivalTime = time => moment(time, 'HH:mm:ss').format('hh:mm a');
   const schedulesWithDurations = {
@@ -99,6 +106,7 @@ export const switchDestination = (destination) => ({
 export default {
   sendRoutes,
   sendRoutesError,
+  setRoute,
   requestRoutes,
   fetchRoutes,
   switchDestination,

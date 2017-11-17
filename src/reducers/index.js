@@ -1,6 +1,6 @@
 import actionTypes from '../actions/actionTypes';
 
-const routes = (state = { isFetching: false, items: [] }, action) => {
+const routes = (state = { isFetching: true, items: [] }, action) => {
   switch (action.type) {
     case (actionTypes.REQUEST_ROUTES): {
       return {
@@ -26,7 +26,7 @@ const routes = (state = { isFetching: false, items: [] }, action) => {
   }
 };
 
-const schedules = (state = {}, action) => {
+const schedules = (state = { isFetching: true }, action) => {
   switch (action.type) {
     case (actionTypes.REQUEST_SCHEDULES): {
       return {
@@ -54,15 +54,33 @@ const schedules = (state = {}, action) => {
 };
 
 const app = (state = {}, action) => {
+  switch (action.type) {
+    case (actionTypes.SET_ROUTE): {
+      return {
+        ...state,
+        routeId: action.payload.routeId,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const appReducer = (state = {}, action) => {
   return {
+    app: app(state.app, action),
     routes: routes(state.routes, action),
     schedules: schedules(state.schedules, action),
   };
 }
 
+export const getApp = state => state.app;
 export const getRoutes = state => state.routes.items;
-export const getRouteFetchingStatus = state => state.routes.isFetching;
+export const getRouteFetchingStatus = state => getRoutes(state).isFetching;
 export const getSchedules = state => state.schedules;
+export const getCurrentRouteId = state => getApp(state).routeId;
+export const getRouteById = (state, id) =>
+  getRoutes(state).find(r => r.route_id === id);
 export const getScheduleDestination = state =>
   getSchedules(state).destination;
 export const getSchedulesFetchingStatus = state => state.schedules.isFetching;
@@ -80,4 +98,4 @@ export const getSchedulesForDestination = (state) => {
   };
 };
 
-export default app;
+export default appReducer;

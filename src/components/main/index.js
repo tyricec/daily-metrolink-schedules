@@ -3,9 +3,14 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LoadingIndicator from 'react-loading-indicator';
 
-import { fetchRoutes } from '../../actions';
+import { fetchRoutes, setRoute } from '../../actions';
 import RouteDisplay from './RouteDisplay';
-import { getRouteFetchingStatus, getRoutes } from '../../reducers/index';
+import {
+  getRouteFetchingStatus,
+  getRoutes,
+  getRouteById,
+  getCurrentRouteId,
+} from '../../reducers/index';
 
 const container = {
   padding: '16px 8px',
@@ -28,12 +33,13 @@ export class Main extends React.Component {
   }
 
   onRouteClick = (route) => {
-    this.setState({ route, redirect: true });
+    this.props.dispatch(setRoute(route));
+    this.setState({ redirect: true });
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={`/details/${encodeURIComponent(this.state.route)}`} />;
+    if (this.state.redirect && this.props.routeId) {
+      return <Redirect to={`/details/${encodeURIComponent(this.props.routeId)}`} />;
     }
 
     if (this.props.isFetching) {
@@ -57,6 +63,7 @@ export class Main extends React.Component {
 export default connect(
   state => ({
     isFetching: getRouteFetchingStatus(state),
+    routeId: getCurrentRouteId(state),
     routes: getRoutes(state),
   }),
 )(Main);

@@ -25,15 +25,20 @@ const styles = {
   }
 };
 
-export default (props) => (
-  <div style={styles.container}>
-    <div style={styles.routeSelect}>
-      <Link style={{ color: 'rgb(255,255,255)' }} to="/">{props.route}</Link>
+export default (props) => {
+  return (
+    <div style={{
+      ...styles.container,
+      backgroundColor: `#${props.route.route_color}`,
+    }}>
+      <div style={styles.routeSelect}>
+        <Link style={{ color: 'rgb(255,255,255)' }} to="/">{props.route.route_id}</Link>
+      </div>
+      <Dropdown
+        onSelect={props.onDirectionChange}
+        selected={props.selectedDirection}
+        items={props.directions}
+      />
     </div>
-    <Dropdown
-      onSelect={props.onDirectionChange}
-      selected={props.selectedDirection}
-      items={props.directions}
-    />
-  </div>
-);
+  );
+}

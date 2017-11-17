@@ -11,7 +11,10 @@ const styles = {
 };
 
 export default props => (
-  <div style={styles.container}>
+  <div style={{
+    ...styles.container,
+    ...props.containerStyle,
+  }}>
     <div>{props.route}</div>
     <div>{props.duration}</div>
     <div>{props.daysOfWeek}</div>

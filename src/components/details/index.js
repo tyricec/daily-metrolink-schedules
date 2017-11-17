@@ -2,11 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LoadingIndicator from 'react-loading-indicator';
 
-import { fetchSchedules, switchDestination } from '../../actions';
+import { fetchSchedules, switchDestination, fetchRoutes, setRoute } from '../../actions';
 import {
   getScheduleDestination,
   getSchedulesForDestination,
-  getSchedulesFetchingStatus
+  getSchedulesFetchingStatus,
+  getRouteById,
+  getRouteFetchingStatus
 } from '../../reducers';
 import RouteMenu from './RouteMenu';
 import ScheduleList from './ScheduleList';
@@ -25,6 +27,11 @@ class RouteDetails extends React.Component {
     super(props);
 
     this.props.dispatch(fetchSchedules(props.match.params.route));
+    this.props.dispatch(
+      setRoute(decodeURIComponent(props.match.params.route)
+    ));
+    if (props.route === undefined)
+      this.props.dispatch(fetchRoutes());
   }
 
   handleDirectionChange = (direction) => {
@@ -32,28 +39,32 @@ class RouteDetails extends React.Component {
   }
 
   render() {
-    const { match } = this.props;
-    const route = decodeURIComponent(match.params.route);
-    
-    if (this.props.schedules === undefined || this.props.schedules === null)
-      return null;
-
-    if (this.props.isFetching) {
+    if (
+      this.props.isFetchingSchedules ||
+      this.props.isFetchingRoutes ||
+      this.props.route === undefined
+    ) {
       return <LoadingIndicator />;
     }
+
+    if (this.props.schedules === undefined)
+      return null;
 
     return (
       <div>
         <div style={styles.menuContainer}>
           <RouteMenu
-            route={route}
+            route={this.props.route}
             selectedDirection={this.props.destination}
             directions={this.props.schedules.destinations}
             onDirectionChange={(direction) => this.handleDirectionChange(direction)}
           />
         </div>
         <div style={styles.scheduleContainer}>
-          <ScheduleList schedules={this.props.schedules.schedules} />
+          <ScheduleList
+            route={this.props.route}
+            schedules={this.props.schedules.schedules}
+          />
         </div>
       </div>
     );
@@ -61,9 +72,14 @@ class RouteDetails extends React.Component {
 }
 
 export default connect(
-  state => ({
+  (state, ownProps) => ({
+    route: getRouteById(
+      state,
+      decodeURIComponent(ownProps.match.params.route)
+    ),
     destination: getScheduleDestination(state),
-    isFetching: getSchedulesFetchingStatus(state),
+    isFetchingSchedules: getSchedulesFetchingStatus(state),
+    isFetchingRoutes: getRouteFetchingStatus(state),
     schedules: getSchedulesForDestination(state),
   }),
 )(RouteDetails);
