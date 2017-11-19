@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import actionTypes from './actionTypes';
 
+const apiHostname = process.env.REACT_APP_BACKEND_HOST || 'localhost:3000';
 export const sendRoutes = (routes) => {
   routes.sort((a, b) => {
     const aName = a.route_id.toUpperCase();
@@ -35,7 +36,7 @@ export const sendRoutesError = (error) => ({
 export const fetchRoutes = () => {
   return (dispatch) => {
     dispatch(requestRoutes());
-    return fetch('http://localhost:3000/api/v1/routes')
+    return fetch(`http://${apiHostname}/api/v1/routes`)
       .then(res => res.json())
       .then(res => dispatch(sendRoutes(res)));
   };
@@ -90,7 +91,7 @@ export const fetchSchedules = (routeId) => {
 
   return (dispatch) => {
     dispatch(requestSchedules(routeId));
-    return fetch(`http://localhost:3000/api/v1/schedules/${encodedRoute}`)
+    return fetch(`http://${apiHostname}/api/v1/schedules/${encodedRoute}`)
       .then(res => res.json())
       .then(res => dispatch(sendSchedules(res)));
   };

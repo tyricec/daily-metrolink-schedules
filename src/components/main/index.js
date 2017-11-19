@@ -8,7 +8,6 @@ import RouteDisplay from './RouteDisplay';
 import {
   getRouteFetchingStatus,
   getRoutes,
-  getRouteById,
   getCurrentRouteId,
 } from '../../reducers/index';
 
