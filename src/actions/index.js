@@ -36,7 +36,7 @@ export const sendRoutesError = (error) => ({
 export const fetchRoutes = () => {
   return (dispatch) => {
     dispatch(requestRoutes());
-    return fetch(`http://${apiHostname}/api/v1/routes`)
+    return fetch(`${window.location.protocol}//${apiHostname}/api/v1/routes`)
       .then(res => res.json())
       .then(res => dispatch(sendRoutes(res)));
   };
@@ -91,7 +91,7 @@ export const fetchSchedules = (routeId) => {
 
   return (dispatch) => {
     dispatch(requestSchedules(routeId));
-    return fetch(`http://${apiHostname}/api/v1/schedules/${encodedRoute}`)
+    return fetch(`${window.location.protocol}//${apiHostname}/api/v1/schedules/${encodedRoute}`)
       .then(res => res.json())
       .then(res => dispatch(sendSchedules(res)));
   };
